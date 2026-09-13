@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autorização do Instagram — Inglês em 10 Segundos</title>
+<link rel="stylesheet" href="estilo.css">
+<div class="wrap">
+  <header><span class="logo">10</span><strong>Inglês em 10 Segundos</strong></header>
+
+  <h1>Autorização do Instagram</h1>
+
+  <div id="estado">
+    <p class="sub">Verificando…</p>
+  </div>
+
+  <h2>Por que esta página existe</h2>
+  <p>A Meta não aceita <code>http://localhost</code> como endereço de retorno do
+  login. Esta página existe só para receber o código de autorização e repassá-lo
+  ao painel que roda no computador local. Ela não guarda nada: o código fica na
+  barra de endereços e é usado uma única vez.</p>
+
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="privacidade.html">Política de Privacidade</a>
+    <a href="termos.html">Termos de Uso</a>
+  </nav>
+  <footer>Inglês em 10 Segundos — aplicativo pessoal de publicação automatizada.</footer>
+</div>
+
+<script>
+(function () {
+  var PORTA = 5178;
+  var destino = 'http://localhost:' + PORTA + '/api/instagram/callback';
+  var p = new URLSearchParams(location.search);
+  var code = p.get('code');
+  var erro = p.get('error_description') || p.get('error');
+  var caixa = document.getElementById('estado');
+
+  function html(s) { caixa.innerHTML = s; }
+
+  if (erro) {
+    html('<p class="sub">A Meta recusou a autorização:</p>' +
+         '<p><strong>' + erro.replace(/[<>&]/g, '') + '</strong></p>' +
+         '<p>Volte ao painel e tente conectar de novo.</p>');
+    return;
+  }
+
+  if (!code) {
+    html('<p class="sub">Nenhum código recebido. Esta página só funciona quando ' +
+         'a Meta redireciona para cá durante o login.</p>');
+    return;
+  }
+
+  var url = destino + '?code=' + encodeURIComponent(code);
+  html('<p class="sub">Código recebido. Enviando ao painel local…</p>' +
+       '<p><a id="manual" href="' + url + '">Clique aqui se não for automático</a></p>' +
+       '<p style="margin-top:26px">Se o painel não estiver rodando, abra o terminal ' +
+       'do projeto, rode <code>npm start</code> e clique no link acima.</p>');
+
+  // navegacao de topo para localhost e permitida a partir de https
+  setTimeout(function () { location.href = url; }, 900);
+})();
+</script>
