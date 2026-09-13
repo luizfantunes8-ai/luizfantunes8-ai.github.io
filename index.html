@@ -42,3 +42,31 @@
   </nav>
   <footer>Inglês em 10 Segundos — aplicativo pessoal de publicação automatizada.</footer>
 </div>
+
+<script>
+// A Meta manda o ?code= para a raiz do site (foi o redirect cadastrado no app).
+// Esta parte captura o codigo e repassa ao painel local, igual a auth-instagram.html.
+// Navegacao de topo de https para http://localhost e permitida pelo navegador.
+(function () {
+  var p = new URLSearchParams(location.search);
+  var code = p.get('code');
+  var erro = p.get('error_description') || p.get('error');
+  if (!code && !erro) return;
+
+  var caixa = document.createElement('div');
+  caixa.style.cssText = 'background:#131d33;border:2px solid #ffc83d;border-radius:12px;' +
+    'padding:22px;margin:0 0 26px';
+  document.querySelector('.wrap').prepend(caixa);
+
+  if (erro) {
+    caixa.innerHTML = '<strong>A Meta recusou a autorização:</strong><br>' +
+      erro.replace(/[<>&]/g, '') + '<br><br>Volte ao painel e tente de novo.';
+    return;
+  }
+
+  var destino = 'http://localhost:5178/api/instagram/callback?code=' + encodeURIComponent(code);
+  caixa.innerHTML = '<strong>Código recebido.</strong> Enviando ao painel local…<br><br>' +
+    '<a href="' + destino + '">Clique aqui se não for automático</a>';
+  setTimeout(function () { location.href = destino; }, 900);
+})();
+</script>
