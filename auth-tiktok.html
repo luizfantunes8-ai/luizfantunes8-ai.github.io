@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autorização do TikTok — Inglês em 10 Segundos</title>
+<link rel="stylesheet" href="estilo.css">
+<div class="wrap">
+  <header><span class="logo">10</span><strong>Inglês em 10 Segundos</strong></header>
+
+  <h1>Autorização do TikTok</h1>
+  <div id="estado"><p class="sub">Verificando…</p></div>
+
+  <h2>Por que esta página existe</h2>
+  <p>O TikTok não aceita <code>http://localhost</code> como endereço de retorno
+  do login. Esta página recebe o código de autorização e o repassa ao painel
+  que roda no computador local. Ela não guarda nada.</p>
+
+  <p>É uma página separada da do Instagram de propósito: cada serviço precisa
+  do seu próprio endereço de retorno, senão o código vai para o lugar errado.</p>
+
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="privacidade.html">Política de Privacidade</a>
+    <a href="termos.html">Termos de Uso</a>
+  </nav>
+  <footer>Inglês em 10 Segundos — aplicativo pessoal de publicação automatizada.</footer>
+</div>
+
+<script>
+(function () {
+  var destino = 'http://localhost:5178/api/tiktok/callback';
+  var p = new URLSearchParams(location.search);
+  var code = p.get('code');
+  var erro = p.get('error_description') || p.get('error');
+  var caixa = document.getElementById('estado');
+
+  if (erro) {
+    caixa.innerHTML = '<p class="sub">O TikTok recusou a autorização:</p><p><strong>' +
+      erro.replace(/[<>&]/g, '') + '</strong></p><p>Volte ao painel e tente de novo.</p>';
+    return;
+  }
+  if (!code) {
+    caixa.innerHTML = '<p class="sub">Nenhum código recebido. Esta página só funciona ' +
+      'quando o TikTok redireciona para cá durante o login.</p>';
+    return;
+  }
+
+  var url = destino + '?code=' + encodeURIComponent(code);
+  caixa.innerHTML = '<p class="sub">Código recebido. Enviando ao painel local…</p>' +
+    '<p><a href="' + url + '">Clique aqui se não for automático</a></p>' +
+    '<p style="margin-top:26px">Se o painel não estiver rodando, abra o projeto, ' +
+    'rode <code>npm start</code> e clique no link acima.</p>';
+  setTimeout(function () { location.href = url; }, 900);
+})();
+</script>
