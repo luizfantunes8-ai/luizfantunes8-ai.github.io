@@ -15,20 +15,45 @@
   <h2>O que é este site</h2>
   <p>Esta é a página oficial do aplicativo <strong>Inglês em 10 Segundos</strong>,
   um programa que roda no computador do próprio criador do canal e publica os
-  vídeos automaticamente nos horários definidos por ele, usando a API oficial
-  do YouTube.</p>
+  vídeos automaticamente nos horários definidos por ele, usando as APIs oficiais
+  do <strong>YouTube</strong>, do <strong>Instagram</strong> e do
+  <strong>TikTok</strong>.</p>
   <p>O aplicativo é de uso pessoal, não tem cadastro, não tem login de
-  visitantes e não é distribuído a terceiros.</p>
+  visitantes e não é distribuído a terceiros. Ele publica apenas na conta do
+  próprio dono, que conecta cada rede uma vez e pode desconectar quando quiser.</p>
 
   <h2>Como funciona</h2>
   <ul>
     <li>O conteúdo vem de uma lista revisada manualmente, frase por frase.</li>
-    <li>O programa monta o vídeo vertical e envia ao YouTube pela API.</li>
+    <li>O programa monta o vídeo vertical a partir dessa lista, com música
+    sintetizada — não usa vídeo, imagem nem áudio de terceiros.</li>
+    <li>O vídeo é enviado pela API oficial de cada rede: YouTube Data API,
+    Instagram Graph API e TikTok Content Posting API.</li>
     <li>Nenhum vídeo é publicado sem aprovação prévia de cada item.</li>
   </ul>
 
+  <h2>Integração com o TikTok</h2>
+  <p>O envio ao TikTok usa a <strong>Content Posting API</strong> e acontece
+  sempre na conta do próprio dono do aplicativo. Antes de qualquer envio, uma
+  tela mostra a conta de destino, a pré-visualização do vídeo e a legenda, e
+  exige que o dono:</p>
+  <ul>
+    <li>escolha a privacidade do vídeo numa lista <strong>sem valor
+    padrão</strong> (nada é escolhido por ele);</li>
+    <li>defina se comentários, duetos e costuras ficam ligados, respeitando o
+    que a conta já permite;</li>
+    <li>declare se o conteúdo é comercial, com a confirmação de uso de música
+    exigida pelo TikTok;</li>
+    <li>marque o consentimento explícito para aquele vídeo — que pode ser
+    retirado antes do envio.</li>
+  </ul>
+  <p>O aplicativo <strong>não lê nem exibe</strong> conteúdo do TikTok, e não
+  publica em nenhuma conta que não seja a do próprio dono.</p>
+
   <h2>Contato</h2>
-  <p>Pelo canal: <a href="https://www.youtube.com/@ingles10segundos" target="_blank" rel="noopener">@ingles10segundos</a> no YouTube.</p>
+  <p>Pelo canal: <a href="https://www.youtube.com/@ingles10segundos" target="_blank" rel="noopener">@ingles10segundos</a> no YouTube,
+  <a href="https://www.tiktok.com/@ingles10segundos" target="_blank" rel="noopener">@ingles10segundos</a> no TikTok e
+  <a href="https://www.instagram.com/ingles10segundos" target="_blank" rel="noopener">@ingles10segundos</a> no Instagram.</p>
   <p>Por e-mail: <a href="#" id="mail">clique aqui para exibir o endereço</a></p>
   <script>
   (function(){var a=document.getElementById("mail");if(!a)return;
